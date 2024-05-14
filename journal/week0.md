@@ -69,7 +69,7 @@ After the AWS account was created, several steps were taken to set it up for the
 
 The very first step after creating an AWS account should be to secure the root user account (the user that opened the AWS account) by setting up multi-factor authentication (MFA) to make it harder for the account to be compromised. This can be done by clicking on the user name at the top right corner and selecting `Security credentials`.
 
-![Security credentials](/journal/assets/iam-security-credentials.png)
+![Security credentials](/journal/assets/week0/iam-security-credentials.png)
 
 Clicking on the `Assign MFA device` button leads to a screen where the device name can be entered and a choice option between three MFA setup paths.
 
@@ -84,7 +84,7 @@ The second step when setting up an AWS account is to create an admin user to lim
 
 For this step, a user was created in the Identity and Access Management (IAM) service and assigned to the `Admin` group which included the `AdministratorAccess` permission policy.
 
-![Admin user](/journal/assets/iam-admin-user.png)
+![Admin user](/journal/assets/week0/iam-admin-user.png)
 
 ### Command Line Interface (CLI)
 
@@ -94,7 +94,7 @@ This can be done through the UI as well as with the command line interface (CLI)
 
 A good sanity-check command that can tell if the command line is set up correctly is `aws sts get-caller-identity`. If everything went well, it should show the AWS account Id.
 
-![CloudShell](/journal/assets/cloudshell.png)
+![CloudShell](/journal/assets/week0/cloudshell.png)
 
 Installing the AWS CLI on a machine takes a few more steps. It can be installed by following the steps in the [install guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
@@ -102,18 +102,20 @@ To make the AWS CLI become preinstalled when launching a Gitpod instance, the `a
 
 In order to use the AWS CLI, an access key needs to be created and the CLI needs to be configured to use it. The access key can be created by clicking on the user name at the top right corner and selecting `Security credentials`. Then click the `Create access key` button and choose the `Command Line Interface (CLI)` use case. This generates an access key and a secret access key. The secret access key needs to be stored in a secure place for later use.
 
+![Admin user](/journal/assets/week0/iam-access-key.png)
+
 Configuring the AWS CLI to use those credentials can be done by running the `aws configure` command and it prompts the user to enter the access key, secret access key, and region.
 Alternatively, the `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_DEFAULT_REGION` environment variables can be set, as described in the [AWS CLI Environment variables configuration guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-set).
 
 Gitpod has a convenient command to preserve environment variables across restarts of the developer environment. It looks like this: `gp env AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE`. The access key value is an example from the AWS CLI documentation.
 
-![Gitpod CLI](/journal/assets/gitpod-cli.png)
+![Gitpod CLI](/journal/assets/week0/gitpod-cli.png)
 
 ### Budget and Billing Alerts
 
 Setting up a budget can be done from the Budget side-menu in the Billing and Cost Management service with an option to choose between simplified templates and customized budgets. The Zero spend budget template is perfect for this project as it notifies once the spending exceeds $0.01. Creating this budget consumes one of the two budgets available for free.
 
-![Budget](/journal/assets/billing-budget.png)
+![Budget](/journal/assets/week0/billing-budget.png)
 
 Another way to define a budget is through the CLI using the `aws budgets create-budget` command. The complete command would be this:
 
@@ -158,7 +160,7 @@ Finally, the CloudWatch alarm can be configured with:
 aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.json
 ``` 
 
-![CloudWatch Billing Alarm](/journal/assets/cloudwatch-billing-alarm.png)
+![CloudWatch Billing Alarm](/journal/assets/week0/cloudwatch-billing-alarm.png)
 
 ## Architecture Diagrams
 
@@ -166,13 +168,13 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.js
 
 The conceptual or napkin architecture diagram serves as a high-level overview of the system to give an idea of how it will be structured.
 
-![Conceptual Architecture Diagram](/journal/assets/Cruddur_-_Conceptual_Architecture_Diagram.png)
+![Conceptual Architecture Diagram](/journal/assets/week0/Cruddur_-_Conceptual_Architecture_Diagram.png)
 
 ### Logical Architecture Diagram
 
 The logical architecture diagram takes the conceptual diagram and replaces the generic services (Router) with the actual names of the services to be used (Route 53). The next step would be to create a physical architecture diagram, which would be more specific in naming the resources inside of each service compared to the logical diagram.
 
-![Logical Architecture Diagram](/journal/assets/Cruddur_-_Logical_Architecture_Diagram.png)
+![Logical Architecture Diagram](/journal/assets/week0/Cruddur_-_Logical_Architecture_Diagram.png)
 
 [Conceptual and logical architecture diagram](https://lucid.app/lucidchart/0cd3494f-986d-429b-8b3d-e33d52e3f35a/edit?invitationId=inv_a61d5454-b455-46c7-b88d-87d911d90865) on Lucidchart.
 
@@ -180,13 +182,13 @@ The logical architecture diagram takes the conceptual diagram and replaces the g
 
 The conceptual CI/CD diagram was done as an unguided exercise to practice with the diagramming app.
 
-![Conceptual CI/CD Diagram](/journal/assets/Cruddur_-_Conceptual_CI_CD_Diagram.png)
+![Conceptual CI/CD Diagram](/journal/assets/week0/Cruddur_-_Conceptual_CI_CD_Diagram.png)
 
 ### Logical CI/CD Diagram
 
 The logical CI/CD diagram is a best-effort work and probably not accurate, so it might need to be reviewed later.
 
-![Logical CI/CD Diagram](/journal/assets/Cruddur_-_Logical_CI_CD_Diagram.png)
+![Logical CI/CD Diagram](/journal/assets/week0/Cruddur_-_Logical_CI_CD_Diagram.png)
 
 [Conceptual and logical CI/CD diagram](https://lucid.app/lucidchart/4c61218f-80b1-495a-a0b9-f0049c85faf4/edit?invitationId=inv_96522fa0-ed07-4a3c-a538-ae32e95c30d9) on Lucidchart.
 
@@ -229,7 +231,7 @@ cd $THEIA_WORKSPACE_ROOT
 
 The result after running the previous commands. `***0189` was the change I made to remove the complete account Id from the latest commit. `***REMOVED***` was previously the account Id which is what bfg replaced.
 
-![Sensitive data removed with BFG](/journal/assets/sensitive-data-removed-with-bfg.png)
+![Sensitive data removed with BFG](/journal/assets/week0/sensitive-data-removed-with-bfg.png)
 
 ### TruffleHog
 
@@ -245,4 +247,4 @@ trufflehog github --repo https://github.com/danielwohlgemuth/aws-bootcamp-cruddu
 
 No secrets were found after running the previous command.
 
-![TruffleHog](/journal/assets/trufflehog.png)
+![TruffleHog](/journal/assets/week0/trufflehog.png)
