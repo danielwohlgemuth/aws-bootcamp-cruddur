@@ -2,6 +2,8 @@
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
+    - mhutchie.git-graph
+    - cweijan.vscode-database-client2
 tasks:
   - name: aws-cli
     env:
