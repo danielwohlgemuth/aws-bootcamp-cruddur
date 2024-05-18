@@ -25,6 +25,10 @@ from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProces
 from aws_xray_sdk.core import xray_recorder
 from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
+
 provider = TracerProvider()
 processor = BatchSpanProcessor(OTLPSpanExporter())
 provider.add_span_processor(processor)
@@ -43,6 +47,33 @@ RequestsInstrumentor().instrument()
 # xray_url = os.getenv("AWS_XRAY_URL")
 # xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
 # XRayMiddleware(app, xray_recorder)
+
+rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+# @app.before_first_request # removed in Flask 2.3
+# def init_rollbar():
+with app.app_context():
+    """init rollbar module"""
+    rollbar.init(
+        # access token
+        rollbar_access_token,
+        # environment name
+        'production',
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+    # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+
+@app.route('/rollbar/test')
+def rollbar_test():
+    rollbar.report_message('Hello World!', 'warning')
+    return "Hello World!"
+
+@app.route('/rollbar/error')
+def rollbar_error():
+    1/0
 
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')

@@ -9,6 +9,7 @@ services:
       OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
       AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
       AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+      ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
     build: ./backend-flask
     ports:
       - "4567:4567"
@@ -55,7 +56,7 @@ services:
       - "xray -o -b xray-daemon:2000"
     ports:
       - 2000:2000/udp
-w
+
 # the name flag is a hack to change the default prepend folder
 # name when outputting the image names
 networks:
