@@ -3,8 +3,10 @@ import React from "react";
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
 
+import { resetPassword, confirmResetPassword } from 'aws-amplify/auth';
+
 export default function RecoverPage() {
-  // Username is Eamil
+  // Username is Email
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [passwordAgain, setPasswordAgain] = React.useState('');
@@ -14,12 +16,30 @@ export default function RecoverPage() {
 
   const onsubmit_send_code = async (event) => {
     event.preventDefault();
-    console.log('onsubmit_send_code')
+    setErrors('');
+    try {
+      await resetPassword({ username });
+      setFormState('confirm_code')
+    } catch (error) {
+      console.log('error with forgot password: ', error);
+      setErrors(error.message);
+    }
     return false
   }
   const onsubmit_confirm_code = async (event) => {
     event.preventDefault();
-    console.log('onsubmit_confirm_code')
+    setErrors('');
+    if (password == passwordAgain) {
+      try {
+        await confirmResetPassword({ username, confirmationCode: code, newPassword: password });
+        setFormState('success');
+      } catch (error) {
+        console.log('error sending forgot password code: ', error);
+        setErrors(error.message);
+      }
+    } else {
+      setErrors('Password do not match.');
+    }
     return false
   }
 

@@ -3,8 +3,7 @@ import React from "react";
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
 
-// [TODO] Authenication
-import Cookies from 'js-cookie'
+import { signIn, fetchAuthSession } from 'aws-amplify/auth';
 
 export default function SigninPage() {
 
@@ -15,12 +14,18 @@ export default function SigninPage() {
   const onsubmit = async (event) => {
     event.preventDefault();
     setErrors('')
-    console.log('onsubmit')
-    if (Cookies.get('user.email') === email && Cookies.get('user.password') === password){
-      Cookies.set('user.logged_in', true)
-      window.location.href = "/"
-    } else {
-      setErrors("Email and password is incorrect or account doesn't exist")
+    console.log('onsubmit');
+    try {
+      const user = await signIn({ username: email, password })
+      const { accessToken } = (await fetchAuthSession()).tokens ?? {};
+      localStorage.setItem('access_token', accessToken);
+      window.location.href = "/";
+    } catch (error) {
+      console.log('error signing up: ', error);
+      if (error.code == 'UserNotConfirmedException') {
+        window.location.href = "/confirm";
+      }
+      setErrors(error.message);
     }
     return false
   }
