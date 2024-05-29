@@ -38,7 +38,6 @@ export default function HomeFeedPage() {
   };
 
   const checkAuth = async () => {
-    console.log('checkAuth')
     try {
       const user = await fetchUserAttributes();
       setUser({

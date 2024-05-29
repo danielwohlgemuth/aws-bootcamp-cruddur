@@ -22,7 +22,11 @@ export default function RecoverPage() {
       setFormState('confirm_code')
     } catch (error) {
       console.log('error with forgot password: ', error);
-      setErrors(error.message);
+      if (error.name == 'EmptyResetPasswordUsername') {
+        setErrors("Email is required.");
+      } else {
+        setErrors(error.message);
+      }
     }
     return false
   }
@@ -35,7 +39,13 @@ export default function RecoverPage() {
         setFormState('success');
       } catch (error) {
         console.log('error sending forgot password code: ', error);
-        setErrors(error.message);
+        if (error.name == 'EmptyConfirmResetPasswordNewPassword') {
+          setErrors("New password and new password again are required.");
+        } else if (error.name == 'EmptyConfirmResetPasswordConfirmationCode') {
+          setErrors("Reset password code is required.");
+        } else {
+          setErrors(error.message);
+        }
       }
     } else {
       setErrors('Password do not match.');
@@ -118,7 +128,7 @@ export default function RecoverPage() {
           />
         </div>
       </div>
-      {errors}
+      {el_errors}
       <div className='submit'>
         <button type='submit'>Reset Password</button>
       </div>
@@ -127,9 +137,9 @@ export default function RecoverPage() {
   }
 
   const success = () => {
-    return (<form>
+    return (<form className='proceed'>
       <p>Your password has been successfully reset!</p>
-      <Link to="/signin" className="proceed">Proceed to Signin</Link>
+      <Link to="/signin">Proceed to Signin</Link>
     </form>
     )
     }

@@ -1,17 +1,16 @@
 import './ConfirmationPage.css';
 import React from "react";
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from "react-router-dom";
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
 
 import { confirmSignUp, resendSignUpCode } from 'aws-amplify/auth';
 
 export default function ConfirmationPage() {
-  const [email, setEmail] = React.useState('');
+  const [searchParams, _] = useSearchParams();
+  const [email, setEmail] = React.useState(searchParams.get('email') || '');
   const [code, setCode] = React.useState('');
   const [errors, setErrors] = React.useState('');
   const [codeSent, setCodeSent] = React.useState(false);
-
-  const params = useParams();
 
   const code_onchange = (event) => {
     setCode(event.target.value);
@@ -29,10 +28,10 @@ export default function ConfirmationPage() {
       setCodeSent(true);
     } catch (error) {
       console.log('error resending code: ', error);
-      if (error.message == 'Username cannot be empty') {
-        setErrors("You need to provide an email in order to send Resend Activation Code");
-      } else if (error.message == "Username/client id combination not found.") {
-        setErrors("Email is invalid or cannot be found.");
+      if (error.name == 'EmptySignUpUsername') {
+        setErrors("Email is required.");
+      } else {
+        setErrors(error.message);
       }
     }
   }
@@ -45,10 +44,16 @@ export default function ConfirmationPage() {
         username: email,
         confirmationCode: code
       });
-      window.location.href = "/";
+      window.location.href = "/signin?email=" + email;
     } catch (error) {
       console.log('error confirming singup: ', error.message);
-      setErrors(error.message);
+      if (error.message == 'username is required to confirmSignUp') {
+        setErrors("Email is required.");
+      } else if (error.message == 'code is required to confirmSignUp') {
+        setErrors("Password is required.");
+      } else {
+        setErrors(error.message);
+      }
     }
     return false
   }
@@ -65,12 +70,6 @@ export default function ConfirmationPage() {
   } else {
     code_button = <button className="resend" onClick={resend_code}>Resend Activation Code</button>;
   }
-
-  React.useEffect(()=>{
-    if (params.email) {
-      setEmail(params.email)
-    }
-  }, [])
 
   return (
     <article className="confirm-article">

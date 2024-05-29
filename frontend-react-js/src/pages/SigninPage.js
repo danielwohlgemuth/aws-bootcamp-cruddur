@@ -1,31 +1,39 @@
 import './SigninPage.css';
 import React from "react";
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import { signIn, fetchAuthSession } from 'aws-amplify/auth';
 
 export default function SigninPage() {
-
-  const [email, setEmail] = React.useState('');
+  const [searchParams, _] = useSearchParams();
+  const [email, setEmail] = React.useState(searchParams.get('email') || '');
   const [password, setPassword] = React.useState('');
   const [errors, setErrors] = React.useState('');
 
   const onsubmit = async (event) => {
     event.preventDefault();
     setErrors('')
-    console.log('onsubmit');
     try {
       const user = await signIn({ username: email, password })
-      const { accessToken } = (await fetchAuthSession()).tokens ?? {};
-      localStorage.setItem('access_token', accessToken);
-      window.location.href = "/";
-    } catch (error) {
-      console.log('error signing up: ', error);
-      if (error.code == 'UserNotConfirmedException') {
+      if (user?.nextStep?.signInStep == 'CONFIRM_SIGN_UP') {
         window.location.href = "/confirm";
+      } else {
+        const { accessToken } = (await fetchAuthSession()).tokens ?? {};
+        localStorage.setItem('access_token', accessToken);
+        window.location.href = "/";
       }
-      setErrors(error.message);
+    } catch (error) {
+      console.log('error signing in: ', error);
+      if (error.name == 'EmptySignInUsername') {
+        setErrors("Email is required.");
+      } else if (error.name == 'EmptySignInPassword') {
+        setErrors("Password is required.");
+      } else if (error.name == 'NotAuthorizedException') {
+        setErrors("Incorrect email or password.");
+      } else {
+        setErrors(error.message);
+      }
     }
     return false
   }

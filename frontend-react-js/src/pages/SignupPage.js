@@ -7,7 +7,7 @@ import { signUp } from 'aws-amplify/auth';
 
 export default function SignupPage() {
 
-  // Username is Eamil
+  // Username is Email
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [username, setUsername] = React.useState('');
@@ -16,10 +16,9 @@ export default function SignupPage() {
 
   const onsubmit = async (event) => {
     event.preventDefault();
-    console.log('SignupPage.onsubmit')
     setErrors('');
     try {
-      const { user } = await signUp({
+      await signUp({
         username: email,
         password: password,
         options: {
@@ -34,7 +33,15 @@ export default function SignupPage() {
       window.location.href = `/confirm?email=${email}`
     } catch (error) {
       console.log('error signing up: ', error);
-      setErrors(errors.message);
+      if (error.name == 'EmptySignUpUsername') {
+        setErrors("Email is required.");
+      } else if (error.name == 'EmptySignUpPassword') {
+        setErrors("Password is required.");
+      } else if (error.name == 'InvalidParameterException') {
+        setErrors("Name and username are required.");
+      } else {
+        setErrors(error.message);
+      }
     }
     return false
   }
