@@ -15,3 +15,6 @@ rollbar
 watchtower
 
 python-jose
+
+psycopg[binary]
+psycopg[pool]
