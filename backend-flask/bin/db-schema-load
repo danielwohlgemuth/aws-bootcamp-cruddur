@@ -7,7 +7,7 @@ NO_COLOR='\033[0m'
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 bin_path=$(dirname "$(readlink -f "$BASH_SOURCE")")
-schema_path="${bin_path}/../db/schema.sql
+schema_path="${bin_path}/../db/schema.sql"
 echo ${schema_path}
 
 if [ "$1" = "prod" ]; then

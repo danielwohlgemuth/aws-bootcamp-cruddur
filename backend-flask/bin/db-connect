@@ -1,4 +1,4 @@
-#! /user/bin/bash
+#! /usr/bin/bash
 
 LABEL="db-connect"
 
