@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 set -e # stop if it fails at any point
 
-LABEL="db-seed"
+LABEL="db-setup"
 
 CYAN='\033[1;36m'
 NO_COLOR='\033[0m'

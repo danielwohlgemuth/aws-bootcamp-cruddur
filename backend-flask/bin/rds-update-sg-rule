@@ -8,4 +8,4 @@ printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 aws ec2 modify-security-group-rules \
     --group-id ${DB_SECURITY_GROUP_ID} \
-    --security-group-rules "SecurityGroupRuleId=${DB_SECURITY_GROUP_RULE_ID},SecurityGroupRule={Description=GITPOD,IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
+    --security-group-rules "SecurityGroupRuleId=${DB_SECURITY_GROUP_RULE_ID},SecurityGroupRule={Description=GITPOD,IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=${GITPOD_IP}/32}"
