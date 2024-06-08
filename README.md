@@ -13,6 +13,8 @@ This is the starting codebase that will be used in the FREE AWS Cloud Project Bo
 
 At the start of the bootcamp you need to create a new Github Repository from this template.
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/danielwohlgemuth/aws-bootcamp-cruddur-2023)
+
 ## Journaling Homework
 
 The `/journal` directory contains
