@@ -3,6 +3,7 @@ import psycopg2
 import os
 
 def lambda_handler(event, context):
+    conn = None
     try:
         user = event['request']['userAttributes']
         print('user', user)
