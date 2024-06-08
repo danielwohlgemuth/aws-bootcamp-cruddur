@@ -10,7 +10,7 @@ if [ "$1" = "prod" ]; then
     echo "Running in production mode"
     URL=${PROD_CONNECTION_URL}
 else
-    URL=${CONNECTION_URL}
+    URL=$(sed 's/@db:/@127.0.0.1:/g' <<< "${CONNECTION_URL}")
 fi
 
 psql $URL
