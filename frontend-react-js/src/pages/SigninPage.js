@@ -16,7 +16,7 @@ export default function SigninPage() {
     setErrors('')
     try {
       const user = await signIn({ username: email, password })
-      if (user?.nextStep?.signInStep == 'CONFIRM_SIGN_UP') {
+      if (user?.nextStep?.signInStep === 'CONFIRM_SIGN_UP') {
         window.location.href = "/confirm";
       } else {
         const { accessToken } = (await fetchAuthSession()).tokens ?? {};
@@ -25,11 +25,11 @@ export default function SigninPage() {
       }
     } catch (error) {
       console.log('error signing in: ', error);
-      if (error.name == 'EmptySignInUsername') {
+      if (error.name === 'EmptySignInUsername') {
         setErrors("Email is required.");
-      } else if (error.name == 'EmptySignInPassword') {
+      } else if (error.name === 'EmptySignInPassword') {
         setErrors("Password is required.");
-      } else if (error.name == 'NotAuthorizedException') {
+      } else if (error.name === 'NotAuthorizedException') {
         setErrors("Incorrect email or password.");
       } else {
         setErrors(error.message);

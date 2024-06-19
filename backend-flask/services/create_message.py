@@ -18,7 +18,6 @@ class CreateMessage:
       model['errors'] = ['cognito_user_id_blank']
 
     if mode == 'create':
-      if user_receiver_handle
       if user_receiver_handle == None or len(user_receiver_handle) < 1:
         model['errors'] = ['user_receiver_handle_blank']
 
@@ -73,7 +72,7 @@ class CreateMessage:
           my_user_display_name=my_user['display_name'],
           my_user_handle=my_user['handle'],
           other_user_uuid=other_user['uuid'],
-          other_user_display_name=other_user['display_name']
+          other_user_display_name=other_user['display_name'],
           other_user_handle=other_user['handle']
         )
       model['data'] = data

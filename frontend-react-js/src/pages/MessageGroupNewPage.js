@@ -73,7 +73,7 @@ export default function MessageGroupNewPage() {
             </section>
             <div className='content messages'>
                 <MessageFeed messages={messages} />
-                <MessagesForm setMessages={setMessages} />
+                <MessageForm setMessages={setMessages} />
             </div>
         </article>
     );

@@ -163,14 +163,14 @@ def data_create_message():
     cognito_user_id = claims['sub']
     if message_group_uuid == None:
       model = CreateMessage.run(
-        mode="create"
+        mode="create",
         message=message,
         cognito_user_id=cognito_user_id,
         user_receiver_handle=user_receiver_handle
       )
     else:
       model = CreateMessage.run(
-        mode="update"
+        mode="update",
         message=message,
         cognito_user_id=cognito_user_id,
         user_receiver_handle=user_receiver_handle
@@ -248,7 +248,7 @@ def data_activities_reply(activity_uuid):
     return model['data'], 200
   return
 
-@app.route("/api/users/@<string:handle>/short", methods['GET'])
+@app.route("/api/users/@<string:handle>/short", methods=['GET'])
 def data_users_short(handle):
   data = UsersShort.run(handle)
   return data, 200

@@ -33,11 +33,11 @@ export default function SignupPage() {
       window.location.href = `/confirm?email=${email}`
     } catch (error) {
       console.log('error signing up: ', error);
-      if (error.name == 'EmptySignUpUsername') {
+      if (error.name === 'EmptySignUpUsername') {
         setErrors("Email is required.");
-      } else if (error.name == 'EmptySignUpPassword') {
+      } else if (error.name === 'EmptySignUpPassword') {
         setErrors("Password is required.");
-      } else if (error.name == 'InvalidParameterException') {
+      } else if (error.name === 'InvalidParameterException') {
         setErrors("Name and username are required.");
       } else {
         setErrors(error.message);
