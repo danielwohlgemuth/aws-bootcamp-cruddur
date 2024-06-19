@@ -28,7 +28,7 @@ export default function ConfirmationPage() {
       setCodeSent(true);
     } catch (error) {
       console.log('error resending code: ', error);
-      if (error.name == 'EmptySignUpUsername') {
+      if (error.name === 'EmptySignUpUsername') {
         setErrors("Email is required.");
       } else {
         setErrors(error.message);
@@ -47,9 +47,9 @@ export default function ConfirmationPage() {
       window.location.href = "/signin?email=" + email;
     } catch (error) {
       console.log('error confirming singup: ', error.message);
-      if (error.message == 'username is required to confirmSignUp') {
+      if (error.message === 'username is required to confirmSignUp') {
         setErrors("Email is required.");
-      } else if (error.message == 'code is required to confirmSignUp') {
+      } else if (error.message === 'code is required to confirmSignUp') {
         setErrors("Password is required.");
       } else {
         setErrors(error.message);

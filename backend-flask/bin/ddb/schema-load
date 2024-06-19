@@ -4,7 +4,7 @@ import boto3
 import sys
 
 attrs = {
-    'enpoint_url': 'http://localhost:8000'
+    'endpoint_url': 'http://localhost:8000'
 }
 
 if len(sys.argv) == 2:
@@ -34,11 +34,11 @@ response = ddb.create_table(
     KeySchema=[
         {
             'AttributeName': 'pk',
-            'AttributeType': 'HASH'
+            'KeyType': 'HASH'
         },
         {
             'AttributeName': 'sk',
-            'AttributeType': 'RANGE'
+            'KeyType': 'RANGE'
         }
     ],
     GlobalSecondaryIndexes=[
@@ -49,7 +49,7 @@ response = ddb.create_table(
                 'KeyType': 'HASH'
             }, {
                 'AttributeName': 'sk',
-                'KeyType', 'RANGE'
+                'KeyType': 'RANGE'
             }],
             'Projection': {
                 'ProjectionType': 'ALL'

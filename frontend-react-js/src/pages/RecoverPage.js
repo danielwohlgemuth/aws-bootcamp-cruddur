@@ -22,7 +22,7 @@ export default function RecoverPage() {
       setFormState('confirm_code')
     } catch (error) {
       console.log('error with forgot password: ', error);
-      if (error.name == 'EmptyResetPasswordUsername') {
+      if (error.name === 'EmptyResetPasswordUsername') {
         setErrors("Email is required.");
       } else {
         setErrors(error.message);
@@ -33,15 +33,15 @@ export default function RecoverPage() {
   const onsubmit_confirm_code = async (event) => {
     event.preventDefault();
     setErrors('');
-    if (password == passwordAgain) {
+    if (password === passwordAgain) {
       try {
         await confirmResetPassword({ username, confirmationCode: code, newPassword: password });
         setFormState('success');
       } catch (error) {
         console.log('error sending forgot password code: ', error);
-        if (error.name == 'EmptyConfirmResetPasswordNewPassword') {
+        if (error.name === 'EmptyConfirmResetPasswordNewPassword') {
           setErrors("New password and new password again are required.");
-        } else if (error.name == 'EmptyConfirmResetPasswordConfirmationCode') {
+        } else if (error.name === 'EmptyConfirmResetPasswordConfirmationCode') {
           setErrors("Reset password code is required.");
         } else {
           setErrors(error.message);
@@ -145,13 +145,13 @@ export default function RecoverPage() {
     }
 
   let form;
-  if (formState == 'send_code') {
+  if (formState === 'send_code') {
     form = send_code()
   }
-  else if (formState == 'confirm_code') {
+  else if (formState === 'confirm_code') {
     form = confirm_code()
   }
-  else if (formState == 'success') {
+  else if (formState === 'success') {
     form = success()
   }
 
