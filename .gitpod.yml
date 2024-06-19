@@ -28,10 +28,22 @@ tasks:
       cd frontend-react-js
       npm install
       cd $THEIA_WORKSPACE_ROOT
+  - name: backend-flask
+    command: |
+      cd backend-flask
+      pip install -r requirements.txt
 ports:
   - name: frontend
     port: 3000
     visibility: public
+    onOpen: ignore
   - name: backend
     port: 4567
     visibility: public
+    onOpen: ignore
+  - name: db
+    port: 5432
+    onOpen: ignore
+  - name: dynamodb
+    port: 8000
+    onOpen: ignore
