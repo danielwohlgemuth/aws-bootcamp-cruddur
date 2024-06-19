@@ -1,13 +1,12 @@
 import './HomeFeedPage.css';
 import React from "react";
 
-import { fetchUserAttributes } from 'aws-amplify/auth';
-
 import DesktopNavigation  from '../components/DesktopNavigation';
 import DesktopSidebar     from '../components/DesktopSidebar';
 import ActivityFeed from '../components/ActivityFeed';
 import ActivityForm from '../components/ActivityForm';
 import ReplyForm from '../components/ReplyForm';
+import checkAuth from '../lib/CheckAuth';
 
 export default function HomeFeedPage() {
   const [activities, setActivities] = React.useState([]);
@@ -37,25 +36,13 @@ export default function HomeFeedPage() {
     }
   };
 
-  const checkAuth = async () => {
-    try {
-      const user = await fetchUserAttributes();
-      setUser({
-        display_name: user.name,
-        handle: user.preferred_username,
-      });
-    } catch (error) {
-      console.log('error checking user authentication: ', error);
-    }
-  };
-
   React.useEffect(()=>{
     //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
 
     loadData();
-    checkAuth();
+    checkAuth(setUser);
   }, [])
 
   return (
