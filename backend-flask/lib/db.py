@@ -41,14 +41,15 @@ class Db:
         for key, value in params.items():
             logger.info(f'{key} : {value}')
 
-    def print_sql(self, title, sql):
+    def print_sql(self, title, sql, params={}):
         cyan = '\033[96m'
         no_color = '\033[0m'
         logger.info(f'{cyan}== SQL STATEMENT-[{title}]{no_color}')
         logger.info(sql)
+        logger.info(params)
 
     def query_commit(self, sql, params={}):
-        self.print_sql('commit with returning', sql)
+        self.print_sql('commit with returning', sql, params)
 
         pattern = r"\bRETURNING\b"
         is_returning_id = re.search(pattern, sql)
@@ -66,7 +67,7 @@ class Db:
             self.print_sql_error(error)
 
     def query_array_json(self, sql, params={}):
-        self.print_sql('array', sql)
+        self.print_sql('array', sql, params)
 
         wrapped_sql = self.query_wrap_array(sql)
         with self.pool.connection() as conn:
@@ -76,7 +77,7 @@ class Db:
                 return json[0]
 
     def query_object_json(self, sql, params={}):
-        self.print_sql('json', sql)
+        self.print_sql('json', sql, params)
         self.print_params(params)
         wrapped_sql = self.query_wrap_object(sql)
 
@@ -88,6 +89,14 @@ class Db:
                     return "{}"
                 else:
                     return json[0]
+
+    def query_value(self, sql, params={}):
+        self.print_sql('value', sql, params)
+        with self.pool.connect() as conn
+            with conn.cursor() as cur:
+                cur.execute(sql, params)
+                json = cur.fetchone()
+                return json[0]
 
     def query_wrap_object(self, template):
         sql = f"""
