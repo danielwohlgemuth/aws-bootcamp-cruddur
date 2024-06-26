@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 import checkAuth from '../lib/CheckAuth';
 import DesktopNavigation  from '../components/DesktopNavigation';
 import MessageGroupFeed from '../components/MessageGroupFeed';
-import MessagesFeed from '../components/MessageFeed';
-import MessagesForm from '../components/MessageForm';
+import MessageFeed from '../components/MessageFeed';
+import MessageForm from '../components/MessageForm';
 
 export default function MessageGroupPage() {
   const [messageGroups, setMessageGroups] = React.useState([]);
@@ -15,6 +15,11 @@ export default function MessageGroupPage() {
   const [user, setUser] = React.useState(null);
   const dataFetchedRef = React.useRef(false);
   const params = useParams();
+
+  const refreshMessages = (message_group_uuid) => {
+    params.message_group_uuid = message_group_uuid;
+    loadMessageGroupData();
+  }
 
   const loadMessageGroupsData = async () => {
     try {
@@ -64,16 +69,16 @@ export default function MessageGroupPage() {
     loadMessageGroupsData();
     loadMessageGroupData();
     checkAuth(setUser);
-  }, [])
+  }, [refreshMessages])
   return (
     <article>
       <DesktopNavigation user={user} active={'home'} setPopped={setPopped} />
       <section className='message_groups'>
-        <MessageGroupFeed message_groups={messageGroups} />
+        <MessageGroupFeed message_groups={messageGroups} refreshMessages={refreshMessages} />
       </section>
       <div className='content messages'>
-        <MessagesFeed messages={messages} />
-        <MessagesForm setMessages={setMessages} />
+        <MessageFeed messages={messages} />
+        <MessageForm setMessages={setMessages} />
       </div>
     </article>
   );

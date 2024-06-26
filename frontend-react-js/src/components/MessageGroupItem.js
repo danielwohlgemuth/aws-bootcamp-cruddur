@@ -15,7 +15,7 @@ export default function MessageGroupItem(props) {
   }
 
   return (
-    <Link className={classes()} to={`/messages/`+props.message_group.uuid}>
+    <Link className={classes()} to={`/messages/`+props.message_group.uuid} onClick={() => props.refreshMessages(props.message_group.uuid)}>
       <div className='message_group_avatar'></div>
       <div className='message_content'>
         <div className='message_group_meta'>
