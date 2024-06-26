@@ -5,7 +5,7 @@ from lib.ddb import Ddb
 
 class CreateMessage:
   # mode indicates if we wnat to create a new message_group_or using an exising one
-  def run(mode, message, user_sender_handle, user_receiver_handle):
+  def run(mode, message, cognito_user_id, message_group_uuid=None, user_receiver_handle=None):
     model = {
       'errors': None,
       'data': None
@@ -30,7 +30,7 @@ class CreateMessage:
       # return what we provided
       model['data'] = {
         'display_name': 'Andrew Brown',
-        'handle':  user_sender_handle,
+        'handle':  user_receiver_handle,
         'message': message
       }
     else:
@@ -59,9 +59,10 @@ class CreateMessage:
       if mode == 'update':
         data = Ddb.create_message(
           client=ddb,
+          message=message,
           message_group_uuid=message_group_uuid,
           my_user_uuid=my_user['uuid'],
-          my_user_display_name=my_user['diplay_name'],
+          my_user_display_name=my_user['display_name'],
           my_user_handle=my_user['handle']
         )
       elif mode == 'create':

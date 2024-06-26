@@ -28,7 +28,7 @@ export default function MessageForm(props) {
       const res = await fetch(backend_url, {
         method: "POST",
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem("acces_token")}`,
+          'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },

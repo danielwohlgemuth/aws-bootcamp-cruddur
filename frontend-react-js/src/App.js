@@ -50,7 +50,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/messages/new/:handle",
-    element: <MessageGroupNewPage />
+  element: <MessageGroupNewPage />
   },
   {
     path: "/signup",
