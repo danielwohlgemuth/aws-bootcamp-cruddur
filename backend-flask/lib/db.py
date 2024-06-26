@@ -10,6 +10,22 @@ logger.setLevel(logging.DEBUG)
 console_handler = logging.StreamHandler()
 logger.addHandler(console_handler)
 
+def is_docker():
+    # Check for the .dockerenv file
+    if os.path.exists('/.dockerenv'):
+        return True
+
+    # Check for the docker cgroup
+    try:
+        with open('/proc/1/cgroup', 'rt') as f:
+            for line in f:
+                if 'docker' in line or 'lxc' in line:
+                    return True
+    except Exception:
+        pass
+
+    return False
+
 class Db:
     def __init__(self):
         self.init_pool()
@@ -31,6 +47,8 @@ class Db:
 
     def init_pool(self):
         connection_url = os.getenv("CONNECTION_URL")
+        if not is_docker():
+            connection_url = connection_url.replace('@db:', '@127.0.0.1:')
         self.pool = ConnectionPool(connection_url)
 
     def print_params(self, params):
