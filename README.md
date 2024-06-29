@@ -1,23 +1,21 @@
-# FREE AWS Cloud Project Bootcamp
+# AWS Cloud Project Bootcamp
 
-- Application: Cruddur
-- Cohort: 2023-A1
+In this repository I keep a journal of my progress as I work through the [AWS Cloud Complete Bootcamp Course](https://www.youtube.com/watch?v=zA8guDqfv40) taught by [Andrew Brown](https://github.com/omenking) in order to gain practical experience with the AWS cloud.
 
-This is the starting codebase that will be used in the FREE AWS Cloud Project Bootcamp 2023
+The project is about building an ephemeral microblogging site called Cruddur. Think of it like X (Twitter) with expiring messages.
 
-![Cruddur Graphic](_docs/assets/cruddur-banner.jpg)
-
-![Cruddur Screenshot](_docs/assets/cruddur-screenshot.png)
-
-## Instructions
-
-At the start of the bootcamp you need to create a new Github Repository from this template.
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/?autostart=true#https://github.com/danielwohlgemuth/aws-bootcamp-cruddur-2023)
+AWS services covered so far:
+- Billing and Cost Management
+- Cognito
+- CloudTrail
+- CloudWatch
+- DynamoDB
+- IAM
+- Lambda
+- RDS
+- VPC
 
 ## Journaling Homework
-
-The `/journal` directory contains
 
 - [x] [Week 0](journal/week0.md)
 - [x] [Week 1](journal/week1.md)
@@ -33,3 +31,9 @@ The `/journal` directory contains
 - [ ] [Week 11](journal/week11.md)
 - [ ] [Week 12](journal/week12.md)
 - [ ] [Week 13](journal/week13.md)
+
+## Gitpod
+
+Gitpod is a service that allows you to launch a preconfigured development environment. It helps keep a consistent environment between developers working on the same project.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/?autostart=true#https://github.com/danielwohlgemuth/aws-bootcamp-cruddur-2023)
