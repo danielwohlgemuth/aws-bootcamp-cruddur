@@ -1,4 +1,4 @@
-FROM python:3.12.3-slim-bookworm
+FROM AWS_ACCOUNT_ID_HERE.dkr.ecr.us-east-1.amazonaws.com/cruddur-python:3.12.3-slim-bookworm
 
 WORKDIR /backend-flask
 
