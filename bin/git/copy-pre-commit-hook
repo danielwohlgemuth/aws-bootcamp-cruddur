@@ -1,0 +1,11 @@
+#! /usr/bin/bash
+
+LABEL="copy-pre-commit-hook"
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+bin_path=$(dirname "$(readlink -f "$BASH_SOURCE")")
+
+cp "$bin_path/pre-commit" "$bin_path/../../.git/hooks/"

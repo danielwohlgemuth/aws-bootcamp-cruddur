@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Find all files in the repository
+FILES=$(git ls-files)
+
+# Check each file for the forbidden string
+for file in $FILES; 
+do
+    if grep -q "$AWS_ACCOUNT_ID" "$file"; then
+        echo "Error: The string '$AWS_ACCOUNT_ID' is found in file '$file'."
+        echo "Commit aborted."
+        exit 1
+    fi
+done
+
+# If the forbidden string is not found, allow the commit
+exit 0
