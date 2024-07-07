@@ -3,15 +3,35 @@
 # Find all files in the repository
 FILES=$(git ls-files)
 
-# Check each file for the forbidden string
-for file in $FILES; 
-do
-    if grep -q "$AWS_ACCOUNT_ID" "$file"; then
-        echo "Error: The string '$AWS_ACCOUNT_ID' is found in file '$file'."
-        echo "Commit aborted."
-        exit 1
-    fi
-done
+if [ ! -z "$AWS_ACCOUNT_ID" ]; then
+    for file in $FILES; do
+        if grep -q "$AWS_ACCOUNT_ID" "$file"; then
+            echo "Error: The string '$AWS_ACCOUNT_ID' is found in file '$file'."
+            echo "Commit aborted."
+            exit 1
+        fi
+    done
+fi
 
-# If the forbidden string is not found, allow the commit
+if [ ! -z "$AWS_COGNITO_USER_POOL_ID" ]; then
+    for file in $FILES; do
+        if grep -q "$AWS_COGNITO_USER_POOL_ID" "$file"; then
+            echo "Error: The string '$AWS_COGNITO_USER_POOL_ID' is found in file '$file'."
+            echo "Commit aborted."
+            exit 1
+        fi
+    done
+fi
+
+if [ ! -z "$AWS_COGNITO_USER_POOL_CLIENT_ID" ]; then
+    for file in $FILES; do
+        if grep -q "$AWS_COGNITO_USER_POOL_CLIENT_ID" "$file"; then
+            echo "Error: The string '$AWS_COGNITO_USER_POOL_CLIENT_ID' is found in file '$file'."
+            echo "Commit aborted."
+            exit 1
+        fi
+    done
+fi
+
+# If the secret string is not found, allow the commit
 exit 0
