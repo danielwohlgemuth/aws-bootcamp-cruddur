@@ -1,3 +1,9 @@
 #! /usr/bin/bash
 
+LABEL="list-tasks"
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
 aws ecs list-tasks --cluster cruddur
