@@ -4,6 +4,13 @@
     "desiredCount": 1,
     "enableECSManagedTags": true,
     "enableExecuteCommand": true,
+    "loadBalancers": [
+        {
+            "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:AWS_ACCOUNT_ID_HERE:targetgroup/cruddur-frontend-react-js-tg/cc98ccc3f45cab9b",
+            "containerName": "frontend-react-js",
+            "containerPort": 3000
+        }
+    ],
     "networkConfiguration": {
         "awsvpcConfiguration": {
             "assignPublicIp": "ENABLED",
@@ -19,6 +26,21 @@
                 "subnet-02e7e011397f19e59"
             ]
         }
+    },
+    "serviceConnectConfiguration": {
+        "enabled": true,
+        "namespace": "cruddur",
+        "services": [
+            {
+                "portName": "frontend-react-js",
+                "discoveryName": "frontend-react-js",
+                "clientAliases": [
+                    {
+                        "port": 3000
+                    }
+                ]
+            }
+        ]
     },
     "propagateTags": "SERVICE",
     "serviceName": "frontend-react-js",
