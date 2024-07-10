@@ -1,4 +1,4 @@
-FROM node:22.1
+FROM node:22.4.1-bookworm
 
 ENV PORT=3000
 
