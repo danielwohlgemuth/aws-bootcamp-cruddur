@@ -1,0 +1,15 @@
+#! /usr/bin/bash
+
+LABEL="backend build"
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+bin_path=$(dirname "$(readlink -f "$BASH_SOURCE")")
+backend_path="${bin_path}/../../backend-flask"
+
+docker build \
+    -t backend-flask-prod \
+    -f "${backend_path}/Dockerfile.prod" \
+    ${backend_path}
