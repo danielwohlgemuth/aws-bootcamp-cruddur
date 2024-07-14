@@ -10,10 +10,15 @@ AWS services covered so far:
 - CloudTrail
 - CloudWatch
 - DynamoDB
-- IAM
+- Identity and Access Management (IAM)
 - Lambda
-- RDS
-- VPC
+- Relational Database Service (RDS)
+- Virtual Private Cloud (VPC)
+- Route 53
+- Certificate Manager
+- Elastic Container Registry (ECR)
+- Elastic Container Service (ECS)
+- Application Load Balancer (ALB)
 
 ## Journaling Homework
 
@@ -23,7 +28,7 @@ AWS services covered so far:
 - [x] [Week 3](journal/week3.md)
 - [x] [Week 4](journal/week4.md)
 - [x] [Week 5](journal/week5.md)
-- [ ] [Week 6](journal/week6.md)
+- [x] [Week 6](journal/week6.md)
 - [ ] [Week 7](journal/week7.md)
 - [ ] [Week 8](journal/week8.md)
 - [ ] [Week 9](journal/week9.md)
