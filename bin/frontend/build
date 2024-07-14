@@ -6,13 +6,16 @@ CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
+bin_path=$(dirname "$(readlink -f "$BASH_SOURCE")")
+frontend_path="${bin_path}/../../frontend-react-js"
+
 docker build \
-    --build-arg REACT_APP_BACKEND_URL="http://cruddur-alb-472270811.us-east-1.elb.amazonaws.com:4567" \
+    --build-arg REACT_APP_BACKEND_URL="https://api.cruddur-dw.com" \
     --build-arg REACT_APP_HONEYCOMB_API_KEY="${HONEYCOMB_API_KEY}" \
     --build-arg REACT_APP_AWS_PROJECT_REGION="${AWS_DEFAULT_REGION}" \
     --build-arg REACT_APP_AWS_COGNITO_REGION="${AWS_DEFAULT_REGION}" \
     --build-arg REACT_APP_AWS_USER_POOL_ID="${AWS_USER_POOL_ID}" \
     --build-arg REACT_APP_AWS_USER_POOL_CLIENT_ID="${AWS_USER_POOL_CLIENT_ID}" \
     -t frontend-react-js \
-    -f Dockerfile.prod \
-    .
+    -f ${frontend_path}/Dockerfile.prod \
+    ${frontend_path}
