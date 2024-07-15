@@ -1,6 +1,6 @@
 # AWS Cloud Project Bootcamp
 
-In this repository I keep a journal of my progress as I work through the [AWS Cloud Complete Bootcamp Course](https://www.youtube.com/watch?v=zA8guDqfv40) taught by [Andrew Brown](https://github.com/omenking) in order to gain practical experience with the AWS cloud.
+In this repository I keep a journal of my progress as I work through the [AWS Cloud Complete Bootcamp Course](https://www.youtube.com/watch?v=zA8guDqfv40) taught by [Andrew Brown](https://github.com/omenking) in order to demonstrate my experience using AWS.
 
 The project is about building an ephemeral microblogging site called Cruddur. Think of it like X (Twitter) with expiring messages.
 
