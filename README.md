@@ -4,6 +4,10 @@ In this repository I keep a journal of my progress as I work through the [AWS Cl
 
 The project is about building an ephemeral microblogging site called Cruddur. Think of it like X (Twitter) with expiring messages.
 
+This is an approximate diagram of the architecture the project will have.
+
+![Cruddur_-_Logical_Architecture_Diagram](/journal/assets/week0/Cruddur_-_Logical_Architecture_Diagram.png)
+
 AWS services covered so far:
 - Billing and Cost Management
 - Cognito
