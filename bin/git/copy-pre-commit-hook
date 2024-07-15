@@ -6,6 +6,10 @@ CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-bin_path=$(dirname "$(readlink -f "$BASH_SOURCE")")
+SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE}")")
+BIN_PATH=$(dirname "${SCRIPT_PATH}")
+PROJECT_PATH=$(dirname "${SCRIPT_PATH}")
+GIT_HOOKS_PATH="${PROJECT_PATH}/.git/hooks/"
+echo ${SCHEMA_PATH}
 
-cp "$bin_path/pre-commit" "$bin_path/../../.git/hooks/"
+cp "${SCRIPT_PATH}/pre-commit" "${GIT_HOOKS_PATH}"

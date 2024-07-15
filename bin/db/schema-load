@@ -6,9 +6,10 @@ CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-bin_path=$(dirname "$(readlink -f "$BASH_SOURCE")")
-schema_path="${bin_path}/../../backend-flask/bin/db/schema.sql"
-echo ${schema_path}
+SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE}")")
+BIN_PATH=$(dirname "${SCRIPT_PATH}")
+SCHEMA_PATH="${BIN_PATH}/backend-flask/bin/db/schema.sql"
+echo ${SCHEMA_PATH}
 
 if [ "$1" = "prod" ]; then
     echo "Running in production mode"
@@ -17,4 +18,4 @@ else
     URL=$(sed 's/@db:/@127.0.0.1:/g' <<< "${CONNECTION_URL}")
 fi
 
-psql ${URL} cruddur < ${schema_path}
+psql ${URL} cruddur < ${SCHEMA_PATH}

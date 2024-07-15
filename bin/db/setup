@@ -7,9 +7,9 @@ CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-bin_path=$(dirname "$(readlink -f "$BASH_SOURCE")")
+SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE}")")
 
-source "${bin_path}/drop"
-source "${bin_path}/create"
-source "${bin_path}/schema-load"
-source "${bin_path}/seed"
+source "${SCRIPT_PATH}/drop"
+source "${SCRIPT_PATH}/create"
+source "${SCRIPT_PATH}/schema-load"
+source "${SCRIPT_PATH}/seed"
