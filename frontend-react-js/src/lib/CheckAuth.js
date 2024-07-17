@@ -1,15 +1,23 @@
-import { fetchUserAttributes } from 'aws-amplify/auth';
+import { fetchUserAttributes, fetchAuthSession } from 'aws-amplify/auth';
 
-const checkAuth = async (setUser) => {
-    try {
-        const user = await fetchUserAttributes();
-        setUser({
-          display_name: user.name,
-          handle: user.preferred_username,
-        });
-      } catch (error) {
-        console.log('error checking user authentication: ', error);
-      }
-};
 
-export default checkAuth;
+export async function getAccessToken() {
+  try {
+    const { accessToken } = (await fetchAuthSession()).tokens ?? {};
+    return accessToken;
+  } catch (error) {
+    console.log('error getting access token: ', error);
+  }
+}
+
+export async function checkAuth(setUser) {
+  try {
+    const user = await fetchUserAttributes();
+    setUser({
+      display_name: user.name,
+      handle: user.preferred_username,
+    });
+  } catch (error) {
+    console.log('error checking user authentication: ', error);
+  }
+}

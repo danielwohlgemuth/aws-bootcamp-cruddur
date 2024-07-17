@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import DesktopNavigation from '../components/DesktopNavigation';
 import MessageGroupFeed from '../components/MessageGroupFeed';
 import MessageForm from '../components/MessageForm';
-import checkAuth from '../lib/CheckAuth';
+import { checkAuth, getAccessToken } from '../lib/CheckAuth';
 import MessageFeed from '../components/MessageFeed';
 
 export default function MessageGroupNewPage() {
@@ -38,9 +38,10 @@ export default function MessageGroupNewPage() {
     const loadMessageGroupsData = async () => {
         try {
             const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/message_groups`;
+            const accessToken = await getAccessToken();
             const res = await fetch(backend_url, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('access_token')}`
+                    Authorization: `Bearer ${accessToken}`
                 },
                 method: 'GET'
             });

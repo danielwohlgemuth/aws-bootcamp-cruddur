@@ -19,8 +19,6 @@ export default function SigninPage() {
       if (user?.nextStep?.signInStep === 'CONFIRM_SIGN_UP') {
         window.location.href = "/confirm";
       } else {
-        const { accessToken } = (await fetchAuthSession()).tokens ?? {};
-        localStorage.setItem('access_token', accessToken);
         window.location.href = "/";
       }
     } catch (error) {
