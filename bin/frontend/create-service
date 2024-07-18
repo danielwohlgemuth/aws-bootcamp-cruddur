@@ -1,6 +1,6 @@
 #! /usr/bin/bash
 
-LABEL="backend build"
+LABEL="frontend create-service"
 
 CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
@@ -9,9 +9,6 @@ printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE}")")
 BIN_PATH=$(dirname "${SCRIPT_PATH}")
 PROJECT_PATH=$(dirname "${BIN_PATH}")
-BACKEND_PATH="${PROJECT_PATH}/backend-flask"
+JSON_PATH="${PROJECT_PATH}/aws/json/service-frontend-react-js.json"
 
-docker build \
-    -t backend-flask-prod \
-    -f "${BACKEND_PATH}/Dockerfile.prod" \
-    ${BACKEND_PATH}
+aws ecs create-service --cli-input-json "file://${JSON_PATH}"

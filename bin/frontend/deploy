@@ -1,5 +1,11 @@
 #! /usr/bin/bash
 
+LABEL="frontend deploy"
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
 CLUSTER_NAME="cruddur"
 SERVICE_NAME="frontend-react-js"
 TASK_DEFINTION_FAMILY="frontend-react-js"

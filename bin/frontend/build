@@ -6,8 +6,10 @@ CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-bin_path=$(dirname "$(readlink -f "$BASH_SOURCE")")
-frontend_path="${bin_path}/../../frontend-react-js"
+SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE}")")
+BIN_PATH=$(dirname "${SCRIPT_PATH}")
+PROJECT_PATH=$(dirname "${BIN_PATH}")
+FRONTEND_PATH="${PROJECT_PATH}/frontend-react-js"
 
 docker build \
     --build-arg REACT_APP_BACKEND_URL="https://api.cruddur-dw.com" \
@@ -17,5 +19,5 @@ docker build \
     --build-arg REACT_APP_AWS_USER_POOL_ID="${AWS_USER_POOL_ID}" \
     --build-arg REACT_APP_AWS_USER_POOL_CLIENT_ID="${AWS_USER_POOL_CLIENT_ID}" \
     -t frontend-react-js \
-    -f ${frontend_path}/Dockerfile.prod \
-    ${frontend_path}
+    -f ${FRONTEND_PATH}/Dockerfile.prod \
+    ${FRONTEND_PATH}

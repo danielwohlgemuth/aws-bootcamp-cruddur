@@ -1,9 +1,0 @@
-#! /usr/bin/bash
-
-LABEL="register-backend-flask-task-definition"
-
-CYAN='\033[1;36m'
-NO_COLOR='\033[0m'
-printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
-
-aws ecs register-task-definition --cli-input-json file://aws/task-definitions/backend-flask.json
