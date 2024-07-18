@@ -43,6 +43,10 @@ tasks:
       sudo dpkg -i session-manager-plugin.deb
       rm session-manager-plugin.deb
       exit
+  - name: pre-commit-hook
+    command: |
+      source "${THEIA_WORKSPACE_ROOT}/bin/git/copy-pre-commit-hook"
+      exit
 ports:
   - name: frontend
     port: 3000
