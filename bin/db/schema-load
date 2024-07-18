@@ -8,7 +8,8 @@ printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE}")")
 BIN_PATH=$(dirname "${SCRIPT_PATH}")
-SCHEMA_PATH="${BIN_PATH}/backend-flask/bin/db/schema.sql"
+PROJECT_PATH=$(dirname "${BIN_PATH}")
+SCHEMA_PATH="${PROJECT_PATH}/backend-flask/bin/db/schema.sql"
 echo ${SCHEMA_PATH}
 
 if [ "$1" = "prod" ]; then

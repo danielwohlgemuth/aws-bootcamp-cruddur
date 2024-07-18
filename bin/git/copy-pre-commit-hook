@@ -7,9 +7,8 @@ NO_COLOR='\033[0m'
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE}")")
-BIN_PATH=$(dirname "${SCRIPT_PATH}")
+BIN_PATH=$(dirname "${BIN_PATH}")
 PROJECT_PATH=$(dirname "${SCRIPT_PATH}")
 GIT_HOOKS_PATH="${PROJECT_PATH}/.git/hooks/"
-echo ${SCHEMA_PATH}
 
 cp "${SCRIPT_PATH}/pre-commit" "${GIT_HOOKS_PATH}"
