@@ -33,7 +33,7 @@ AWS services covered so far:
 - [x] [Week 4](journal/week4.md)
 - [x] [Week 5](journal/week5.md)
 - [x] [Week 6](journal/week6.md)
-- [ ] [Week 7](journal/week7.md)
+- [x] [Week 7](journal/week7.md)
 - [ ] [Week 8](journal/week8.md)
 - [ ] [Week 9](journal/week9.md)
 - [ ] [Week 10](journal/week10.md)
