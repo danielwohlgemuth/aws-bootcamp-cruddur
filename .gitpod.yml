@@ -14,6 +14,7 @@ tasks:
       unzip awscliv2.zip
       sudo ./aws/install
       cd $THEIA_WORKSPACE_ROOT
+      bash bin/ecr/login
       exit
   - name: postgres
     init: |
@@ -46,6 +47,13 @@ tasks:
   - name: pre-commit-hook
     command: |
       source "${THEIA_WORKSPACE_ROOT}/bin/git/copy-pre-commit-hook"
+      exit
+  - name: cdk
+    before: |
+      npm install aws-cdk -g
+      cd thumbing-serverless-cdk
+      cp .env.example .env
+      npm install
       exit
 ports:
   - name: frontend
