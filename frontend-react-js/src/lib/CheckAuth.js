@@ -14,7 +14,7 @@ export async function checkAuth(setUser) {
   try {
     const user = await fetchUserAttributes();
     setUser({
-      cognito_user_uuid: cognito_user.attributes.sub,
+      cognito_user_uuid: user.sub,
       display_name: user.name,
       handle: user.preferred_username,
     });

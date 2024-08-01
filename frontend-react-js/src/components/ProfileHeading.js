@@ -1,6 +1,6 @@
 import './ProfileHeading.css';
 import EditProfileButton from './EditProfileButton';
-import ProfileAvatar from 'component/ProfileAvatar'
+import ProfileAvatar from './ProfileAvatar'
 
 export default function ProfileHeading(props) {
   const backgroundImage = 'url("https://assets.cruddur-dw.com/banners/banner.jpg")';
