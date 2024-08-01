@@ -8,6 +8,8 @@ services:
     volumes:
       - ./backend-flask:/backend-flask
   frontend-react-js:
+    env_file:
+      - frontend-react-js.env
     build: ./frontend-react-js
     ports:
       - "3000:3000"
