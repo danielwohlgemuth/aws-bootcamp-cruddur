@@ -1,0 +1,73 @@
+#! /usr/bin/bash
+set -e # stop if it fails at any point
+
+SUBNET_IDS=$(aws ec2 describe-subnets --query 'Subnets[].SubnetId' --output text)
+SG_ID=$(aws ec2 describe-security-groups --query 'SecurityGroups[?GroupName==`cruddur-alb-sg`].GroupId|[0]' --output text)
+
+aws elbv2 create-load-balancer \
+    --name cruddur-alb \
+    --subnets $SUBNET_IDS \
+    --security-groups $SG_ID \
+    --scheme internet-facing \
+    --type application \
+    --ip-address-type ipv4
+
+LB_ARN=$(aws elbv2 describe-load-balancers --names cruddur-alb --query 'LoadBalancers[?Name==`cruddur-alb`].LoadBalancerArn' --output text)
+
+aws elbv2 create-listener \
+    --load-balancer-arn $LB_ARN \
+    --protocol HTTP \
+    --port 80 \
+    --default-actions Type=redirect,Order=1,RedirectConfig="{Protocol=HTTPS,Port=443,StatusCode=HTTP_301}"
+
+CERT_ARN=$(aws acm list-certificates --query 'CertificateSummaryList[?DomainName==`cruddur-dw.com`].CertificateArn' --output text)
+BACKEND_TG=$(aws elbv2 describe-target-groups --query 'TargetGroups[?TargetGroupName==`cruddur-backend-flask-tg`].TargetGroupArn' --output text)
+FRONTEND_TG=$(aws elbv2 describe-target-groups --query 'TargetGroups[?TargetGroupName==`cruddur-frontend-react-js-tg`].TargetGroupArn' --output text)
+
+aws elbv2 create-listener \
+    --load-balancer-arn $LB_ARN \
+    --protocol HTTPS \
+    --port 443 \
+    --certificates CertificateArn=$CERT_ARN \
+    --default-actions Type=forward,TargetGroupArn=$FRONTEND_TG
+
+HTTPS_LISTENER_ARN=$(aws elbv2 describe-listeners --load-balancer-arn $LB_ARN --query 'Listeners[?Protocol==`HTTPS`].ListenerArn' --output text)
+
+aws elbv2 create-rule \
+    --listener-arn $HTTPS_LISTENER_ARN \
+    --conditions Field=host-header,Values="[\"api.*\"]" \
+    --priority 1 \
+    --actions Type=forward,TargetGroupArn=$BACKEND_TG,Order=1
+
+HOSTED_ZONE_ID=$(aws route53 list-hosted-zones --query 'HostedZones[?Name==`cruddur-dw.com.`].Id' --output text)
+LB_DNS_NAME=$(aws elbv2 describe-load-balancers --names cruddur-alb --query 'LoadBalancers[?LoadBalancerName==`cruddur-alb`].DNSName' --output text)
+CANONICAL_HOSTED_ZONE_ID=$(aws elbv2 describe-load-balancers --names cruddur-alb --query 'LoadBalancers[?LoadBalancerName==`cruddur-alb`].CanonicalHostedZoneId' --output text)
+
+aws route53 change-resource-record-sets --hosted-zone-id $HOSTED_ZONE_ID --change-batch "{
+  \"Changes\": [
+    {
+      \"Action\": \"UPSERT\",
+      \"ResourceRecordSet\": {
+        \"Name\": \"cruddur-dw.com.\",
+        \"Type\": \"A\",
+        \"AliasTarget\": {
+          \"HostedZoneId\": \"$CANONICAL_HOSTED_ZONE_ID\",
+          \"DNSName\": \"dualstack.$LB_DNS_NAME\",
+          \"EvaluateTargetHealth\": true
+        }
+      }
+    },
+    {
+      \"Action\": \"UPSERT\",
+      \"ResourceRecordSet\": {
+        \"Name\": \"api.cruddur-dw.com.\",
+        \"Type\": \"A\",
+        \"AliasTarget\": {
+          \"HostedZoneId\": \"$CANONICAL_HOSTED_ZONE_ID\",
+          \"DNSName\": \"dualstack.$LB_DNS_NAME\",
+          \"EvaluateTargetHealth\": true
+        }
+      }
+    }
+  ]
+}"
