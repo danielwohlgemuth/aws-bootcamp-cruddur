@@ -11,4 +11,6 @@ BIN_PATH=$(dirname "${SCRIPT_PATH}")
 PROJECT_PATH=$(dirname "${BIN_PATH}")
 JSON_PATH="${PROJECT_PATH}/aws/json/service-backend-flask.json"
 
-aws ecs create-service --cli-input-json "file://${JSON_PATH}
+aws ecs create-service \
+    --cli-input-json "file://${JSON_PATH}" \
+    --no-cli-pager
