@@ -3,7 +3,7 @@ import EditProfileButton from './EditProfileButton';
 import ProfileAvatar from './ProfileAvatar'
 
 export default function ProfileHeading(props) {
-  const backgroundImage = 'url("https://assets.cruddur-dw.com/banners/banner.jpg")';
+  const backgroundImage = `url("https://assets.${process.env.REACT_APP_DOMAIN_NAME}/banners/banner.jpg")`;
   const styles = {
     backgroundImage: backgroundImage,
     backgroundSize: 'cover',
