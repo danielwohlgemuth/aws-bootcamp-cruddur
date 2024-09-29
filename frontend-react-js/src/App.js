@@ -3,7 +3,6 @@ import './components/Popup.css';
 
 import HomeFeedPage from './pages/HomeFeedPage';
 import NotificationsFeedPage from './pages/NotificationsFeedPage';
-import UserFeedPage from './pages/UserFeedPage';
 import SignupPage from './pages/SignupPage';
 import SigninPage from './pages/SigninPage';
 import RecoverPage from './pages/RecoverPage';
@@ -11,6 +10,7 @@ import MessageGroupsPage from './pages/MessageGroupsPage';
 import MessageGroupPage from './pages/MessageGroupPage';
 import MessageGroupNewPage from './pages/MessageGroupNewPage';
 import ConfirmationPage from './pages/ConfirmationPage';
+import NotFound from './pages/NotFound';
 import React from 'react';
 import {
   createBrowserRouter,
@@ -36,10 +36,6 @@ const router = createBrowserRouter([
   {
     path: "/notifications",
     element: <NotificationsFeedPage />
-  },
-  {
-    path: "/@:handle",
-    element: <UserFeedPage />
   },
   {
     path: "/messages",
@@ -68,7 +64,11 @@ const router = createBrowserRouter([
   {
     path: "/forgot",
     element: <RecoverPage />
-  }
+  },
+  {
+    path: "/:handle",
+    element: <NotFound />
+  },
 ]);
 
 function App() {
