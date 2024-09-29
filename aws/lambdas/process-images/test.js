@@ -1,7 +1,7 @@
 const {getClient, getOriginalImage, processImage, uploadProcessedImage} = require('./s3-image-processing.js')
 
 async function main(){
-  client = getClient()
+  const client = getClient()
   const srcBucket = 'cruddur-thumbs-dw'
   const srcKey = 'avatar/original/data.jpg'
   const dstBucket = 'cruddur-thumbs-dw'

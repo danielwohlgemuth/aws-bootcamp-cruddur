@@ -8,7 +8,7 @@ const folderOutput = process.env.FOLDER_OUTPUT
 const width = parseInt(process.env.PROCESS_WIDTH)
 const height = parseInt(process.env.PROCESS_HEIGHT)
 
-client = getClient();
+const client = getClient();
 
 exports.handler = async (event) => {
   const srcBucket = event.Records[0].s3.bucket.name;
@@ -18,7 +18,7 @@ exports.handler = async (event) => {
 
   const dstBucket = bucketName;
 
-  filename = path.parse(srcKey).name
+  const filename = path.parse(srcKey).name
   const dstKey = `${folderOutput}/${filename}.jpg`
   console.log('dstBucket',dstBucket)
   console.log('dstKey',dstKey)
