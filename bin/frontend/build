@@ -19,6 +19,7 @@ docker build \
     --build-arg REACT_APP_AWS_USER_POOL_ID="${AWS_USER_POOL_ID}" \
     --build-arg REACT_APP_AWS_USER_POOL_CLIENT_ID="${AWS_USER_POOL_CLIENT_ID}" \
     --build-arg REACT_APP_DOMAIN_NAME="${DOMAIN_NAME}" \
+    --build-arg REACT_APP_API_GATEWAY_ENDPOINT_URL="${AWS_API_GATEWAY_ENDPOINT_URL}" \
     -t frontend-react-js \
     -f ${FRONTEND_PATH}/Dockerfile.prod \
     ${FRONTEND_PATH}
