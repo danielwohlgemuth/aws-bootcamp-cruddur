@@ -52,17 +52,19 @@ export default function ProfileForm(props) {
     const extension = fileparts[fileparts.length-1]
     const presignedurl = await s3uploadkey(extension)
     try {
-      console.log('s3upload')
-      const res = await fetch(presignedurl, {
-        method: "PUT",
-        body: file,
-        headers: {
-          'Content-Type': type
-      }})
-      if (res.status === 200) {
-
-      } else {
-        console.log(res)
+      if (presignedurl) {
+        console.log('s3upload')
+        const res = await fetch(presignedurl, {
+          method: "PUT",
+          body: file,
+          headers: {
+            'Content-Type': type
+        }})
+        if (res.status === 200) {
+  
+        } else {
+          console.log(res)
+        }
       }
     } catch (err) {
       console.log(err);
