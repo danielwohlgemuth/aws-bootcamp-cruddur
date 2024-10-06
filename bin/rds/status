@@ -1,0 +1,11 @@
+#! /usr/bin/bash
+
+LABEL="rds status"
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+DB_STATUS=$(aws rds describe-db-instances --db-instance-identifier cruddur-db-instance --query 'DBInstances[?DBInstanceIdentifier==`cruddur-db-instance`].DBInstanceStatus' --output text)
+
+echo $DB_STATUS
