@@ -7,7 +7,8 @@ INSERT INTO public.users (
 VALUES
     ('Andrew Brown', 'andrewbrown', 'andrewbrown@example.com.invalid', 'MOCK'),
     ('Andrew Bayko', 'andrewbayko', 'andrewbayko@example.com.invalid', 'MOCK'),
-    ('Londo Mollari', 'lmollari@centari.com.invalid', 'londo', 'MOCK');
+    ('Re Bar', 'rebar48202', 'rebar48202@morxin.com', 'MOCK'),
+    ('Voko Ya', 'vokoya366', 'vokoya3664@lapeds.com', 'MOCK');
 
 INSERT INTO public.activities (
     user_uuid,
