@@ -1,0 +1,13 @@
+#! /usr/bin/bash
+
+LABEL="frontend delete-service"
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+aws ecs delete-service \
+    --cluster cruddur \
+    --service frontend-react-js \
+    --force \
+    --no-cli-pager
