@@ -1,0 +1,15 @@
+#! /usr/bin/bash
+set -e # stop if it fails at any point
+
+LABEL="lambda update-CruddurAvatarUpload-allowed-origin"
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+FRONTEND_URL=https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}
+
+aws lambda update-function-configuration \
+  --function-name CruddurAvatarUpload \
+  --environment Variables="{ALLOWED_ORIGIN=${FRONTEND_URL},UPLOADS_BUCKET_NAME=${UPLOADS_BUCKET_NAME}}" \
+  --no-cli-pager
