@@ -13,7 +13,6 @@ export default function ProfileForm(props) {
   }, [props.profile])
 
   const s3uploadkey = async (extension)=> {
-    console.log('ext',extension)
     try {
       const gateway_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_URL}/avatars/key_upload`
       const access_token = await getAccessToken();
@@ -34,26 +33,19 @@ export default function ProfileForm(props) {
       if (res.status === 200) {
         return data.url
       } else {
-        console.log(res)
+        console.log('error in the avatar pre-signed key response', res)
       }
     } catch (err) {
-      console.log(err);
+      console.log('error fetching the avatar pre-signed key', err);
     }
   }
   const s3upload = async (event)=> {
-    console.log('event',event)
-    const file = event.target.files[0]
-    const filename = file.name
-    const size = file.size
-    const type = file.type
-    const preview_image_url = URL.createObjectURL(file)
-    console.log(filename,size,type)
-    const fileparts = filename.split('.')
+    const { name, type } = event.target.files[0]
+    const fileparts = name.split('.')
     const extension = fileparts[fileparts.length-1]
     const presignedurl = await s3uploadkey(extension)
     try {
       if (presignedurl) {
-        console.log('s3upload')
         const res = await fetch(presignedurl, {
           method: "PUT",
           body: file,
@@ -63,11 +55,11 @@ export default function ProfileForm(props) {
         if (res.status === 200) {
   
         } else {
-          console.log(res)
+          console.log('error in avatar upload response', res)
         }
       }
     } catch (err) {
-      console.log(err);
+      console.log('error in avatar upload', err);
     }
   }
 
@@ -75,8 +67,7 @@ export default function ProfileForm(props) {
     event.preventDefault();
     try {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/profile/update`
-      await getAccessToken()
-      const access_token = localStorage.getItem("access_token")
+      const access_token = await getAccessToken();
       const res = await fetch(backend_url, {
         method: "POST",
         headers: {
@@ -91,8 +82,8 @@ export default function ProfileForm(props) {
       });
       let data = await res.json();
       if (res.status === 200) {
-        setBio(null)
-        setDisplayName(null)
+        setBio(bio)
+        setDisplayName(displayName)
         props.setPopped(false)
       } else {
         console.log(res)
