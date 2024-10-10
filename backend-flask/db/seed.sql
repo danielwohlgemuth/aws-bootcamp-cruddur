@@ -8,7 +8,7 @@ VALUES
     ('Andrew Brown', 'andrewbrown', 'andrewbrown@example.com.invalid', 'MOCK'),
     ('Andrew Bayko', 'andrewbayko', 'andrewbayko@example.com.invalid', 'MOCK'),
     ('Re Bar', 'rebar48202', 'rebar48202@morxin.com', 'MOCK'),
-    ('Voko Ya', 'vokoya366', 'vokoya3664@lapeds.com', 'MOCK');
+    ('Voko Ya', 'vokoya3664', 'vokoya3664@lapeds.com', 'MOCK');
 
 INSERT INTO public.activities (
     user_uuid,
