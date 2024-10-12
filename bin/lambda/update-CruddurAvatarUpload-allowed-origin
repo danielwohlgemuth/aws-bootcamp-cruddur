@@ -7,7 +7,11 @@ CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-FRONTEND_URL=https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}
+if [ "$1" = "prod" ]; then
+    FRONTEND_URL=https://${DOMAIN_NAME}
+else
+    FRONTEND_URL=https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}
+fi
 
 aws lambda update-function-configuration \
   --function-name CruddurAvatarUpload \
