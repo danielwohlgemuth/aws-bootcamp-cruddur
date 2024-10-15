@@ -45,4 +45,4 @@ AWS services covered so far:
 
 Gitpod is a service that allows you to launch a preconfigured development environment. It helps keep a consistent environment between developers working on the same project.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/?autostart=true#https://github.com/danielwohlgemuth/aws-bootcamp-cruddur-2023)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/?autostart=true#https://github.com/danielwohlgemuth/aws-bootcamp-cruddur)

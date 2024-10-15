@@ -219,7 +219,7 @@ The commands to do all those steps are here:
 cd /workspace
 # The latest bfg version can be found at https://rtyley.github.io/bfg-repo-cleaner/
 wget https://repo1.maven.org/maven2/com/madgag/bfg/1.14.0/bfg-1.14.0.jar
-git clone --mirror https://github.com/danielwohlgemuth/aws-bootcamp-cruddur-2023.git aws-bootcamp
+git clone --mirror https://github.com/danielwohlgemuth/aws-bootcamp-cruddur.git aws-bootcamp
 # Create the sensitive.txt file and add the account Id to it
 # Gitpod includes support for several languages, including Java. No need to install it. 
 java -jar bfg-1.14.0.jar --replace-text sensitive.txt aws-bootcamp
@@ -242,7 +242,7 @@ It can be installed in Gitpod with `brew install trufflehog`.
 To run it against a repository, the following command can be used:
 
 ```bash
-trufflehog github --repo https://github.com/danielwohlgemuth/aws-bootcamp-cruddur-2023
+trufflehog github --repo https://github.com/danielwohlgemuth/aws-bootcamp-cruddur
 ```
 
 No secrets were found after running the previous command.

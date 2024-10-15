@@ -32,7 +32,7 @@ The dashboard for the frontend then looked like this.
 
 Another challenge I faced with the frontend is that I didn't know how to pass in the Honeycomb API key without exposing it as a hardcoded string. I committed and pushed the API key to GitHub and within minutes received an email from GitGuardian about an exposed secret. After researching it a bit I found that it's possible to pass in environment variables at runtime using `process.env` and use environment variables that start with `REACT_APP_`.
 
-After that was figured out, the secret needed to be removed from the repository. Thanks to the [exercise in week 0](https://github.com/danielwohlgemuth/aws-bootcamp-cruddur-2023/blob/main/journal/week0.md#bfg-repo-cleaner) I already knew how to do that with BFG Repo-Cleaner.
+After that was figured out, the secret needed to be removed from the repository. Thanks to the [exercise in week 0](https://github.com/danielwohlgemuth/aws-bootcamp-cruddur/blob/main/journal/week0.md#bfg-repo-cleaner) I already knew how to do that with BFG Repo-Cleaner.
 
 ![honeycomb frontend env var](/journal/assets/week2/honeycomb-frontend-env-var.png)
 
