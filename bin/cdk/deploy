@@ -1,0 +1,15 @@
+#! /usr/bin/bash
+
+LABEL="cdk deploy"
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE}")")
+BIN_PATH=$(dirname "${SCRIPT_PATH}")
+PROJECT_PATH=$(dirname "${BIN_PATH}")
+THUMBING_PATH="${PROJECT_PATH}/thumbing-serverless-cdk"
+
+cd ${THUMBING_PATH}
+
+cdk deploy
