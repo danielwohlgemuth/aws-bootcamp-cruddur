@@ -16,7 +16,7 @@ echo $DB_PATH
 echo "====$"
 
 docker compose up db dynamodb-local -d
-sleep 2
+sleep 3
 source "${DB_PATH}/drop"
 source "${DB_PATH}/create"
 source "${DB_PATH}/schema-load"
