@@ -48,7 +48,7 @@ tasks:
       npm install aws-cdk -g
       cd thumbing-serverless-cdk
       npm install
-      ruby ${THEIA_WORKSPACE_ROOT}/bin/cdk/generate-env
+      source ${THEIA_WORKSPACE_ROOT}/bin/cdk/generate-env
       source ${THEIA_WORKSPACE_ROOT}/bin/avatar/build
       cd $THEIA_WORKSPACE_ROOT
 ports:
