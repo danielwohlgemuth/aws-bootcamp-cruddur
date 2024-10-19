@@ -23,6 +23,11 @@ AWS services covered so far:
 - Elastic Container Registry (ECR)
 - Elastic Container Service (ECS)
 - Application Load Balancer (ALB)
+- API Gateway
+- Simple Storage Service (S3)
+- CloudFront
+- Cloud Development Framework (CDK)
+- CloudFormation
 
 ## Journaling Homework
 
