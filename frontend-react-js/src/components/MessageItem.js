@@ -3,9 +3,15 @@ import { Link } from "react-router-dom";
 import { format_datetime, message_time_ago } from '../lib/DateTimeFormats';
 
 export default function MessageItem(props) {
+  const backgroundImage = `url("https://assets.${process.env.REACT_APP_DOMAIN_NAME}/avatars/${props.message.cognito_user_id}.jpg")`;
+  const styles = {
+    backgroundImage: backgroundImage,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  };
   return (
     <div className='message_item'>
-      <Link className='message_avatar' to={`/messages/@`+props.message.handle}></Link>
+      <Link className='message_avatar' style={styles} to={`/messages/@`+props.message.handle}></Link>
       <div className='message_content'>
         <div className='message_meta'>
           <div className='message_identity'>

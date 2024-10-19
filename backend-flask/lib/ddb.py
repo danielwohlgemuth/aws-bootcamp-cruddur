@@ -40,6 +40,7 @@ class Ddb:
                 'uuid': item['message_group_uuid']['S'],
                 'display_name': item['user_display_name']['S'],
                 'handle': item['user_handle']['S'],
+                'cognito_user_id': item.get('cognito_user_id', {'S': None})['S'],
                 'message': item['message']['S'],
                 'created_at': last_sent_at
             })
@@ -70,11 +71,12 @@ class Ddb:
                 'display_name': item['user_display_name']['S'],
                 'handle': item['user_handle']['S'],
                 'message': item['message']['S'],
+                'cognito_user_id': item.get('cognito_user_id', {'S': None})['S'],
                 'created_at': created_at
             })
         return results
 
-    def create_message(client, message_group_uuid, message, my_user_uuid, my_user_display_name, my_user_handle):
+    def create_message(client, message_group_uuid, message, my_user_uuid, my_user_display_name, my_user_handle, my_user_cognito_user_id):
         created_at = datetime.now().isoformat()
         message_uuid = str(uuid.uuid4())
 
@@ -85,7 +87,8 @@ class Ddb:
             'message_uuid': { 'S': message_uuid },
             'user_uuid': { 'S': my_user_uuid },
             'user_display_name': { 'S': my_user_display_name },
-            'user_handle': { 'S': my_user_handle }
+            'user_handle': { 'S': my_user_handle },
+            'cognito_user_id': { 'S': my_user_cognito_user_id }
         }
         # insert the record into the table
         table_name = 'cruddur-messages'
@@ -97,11 +100,12 @@ class Ddb:
             'uuid': my_user_uuid,
             'display_name': my_user_display_name,
             'handle': my_user_handle,
+            'cognito_user_id': my_user_cognito_user_id,
             'message': message,
             'created_at': created_at
         }
 
-    def create_message_group(client, message,my_user_uuid, my_user_display_name, my_user_handle, other_user_uuid, other_user_display_name, other_user_handle):
+    def create_message_group(client, message,my_user_uuid, my_user_display_name, my_user_handle, my_user_cognito_user_id, other_user_uuid, other_user_display_name, other_user_handle, other_user_cognito_user_id):
         print('== create_message_group.1')
         table_name = 'cruddur-messages'
 
@@ -119,7 +123,8 @@ class Ddb:
             'message': {'S': message},
             'user_uuid': {'S': other_user_uuid},
             'user_display_name': {'S': other_user_display_name},
-            'user_handle':  {'S': other_user_handle}
+            'user_handle':  {'S': other_user_handle},
+            'cognito_user_id':  {'S': other_user_cognito_user_id}
         }
 
         print('== create_message_group.3')
@@ -130,7 +135,8 @@ class Ddb:
             'message': {'S': message},
             'user_uuid': {'S': my_user_uuid},
             'user_display_name': {'S': my_user_display_name},
-            'user_handle':  {'S': my_user_handle}
+            'user_handle':  {'S': my_user_handle},
+            'cognito_user_id':  {'S': my_user_cognito_user_id}
         }
 
         print('== create_message_group.4')
@@ -141,7 +147,8 @@ class Ddb:
             'message_uuid': {'S': message_uuid},
             'user_uuid': {'S': my_user_uuid},
             'user_display_name': {'S': my_user_display_name},
-            'user_handle': {'S': my_user_handle}
+            'user_handle': {'S': my_user_handle},
+            'cognito_user_id':  {'S': my_user_cognito_user_id}
         }
 
         items = {

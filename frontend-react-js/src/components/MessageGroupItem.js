@@ -13,10 +13,16 @@ export default function MessageGroupItem(props) {
     }
     return classes.join(' ');
   }
+  const backgroundImage = `url("https://assets.${process.env.REACT_APP_DOMAIN_NAME}/avatars/${props.message_group.cognito_user_id}.jpg")`;
+  const styles = {
+    backgroundImage: backgroundImage,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  };
 
   return (
     <Link className={classes()} to={`/messages/`+props.message_group.uuid} onClick={() => props.refreshMessages(props.message_group.uuid)}>
-      <div className='message_group_avatar'></div>
+      <div className='message_group_avatar' style={styles}></div>
       <div className='message_content'>
         <div className='message_group_meta'>
           <div className='message_group_identity'>
