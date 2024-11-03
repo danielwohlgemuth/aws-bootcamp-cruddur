@@ -23,10 +23,8 @@ phases:
 
 env:
   variables:
-    AWS_ACCOUNT_ID: AWS_ACCOUNT_ID_HERE
     AWS_DEFAULT_REGION: us-east-1
     CONTAINER_NAME: backend-flask
-    IMAGE_URL: AWS_ACCOUNT_ID_HERE.dkr.ecr.us-east-1.amazonaws.com
     REPO_NAME: backend-flask:latest
 artifacts:
   files:
