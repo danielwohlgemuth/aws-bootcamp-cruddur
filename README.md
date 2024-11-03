@@ -13,6 +13,10 @@ This is the most recent diagram of the AWS architecture.
 
 ![AWS architecture diagram](/journal/assets/week8/aws-architecture-diagram.jpg)
 
+And this is the most recent CI/CD pipeline architecture diagram.
+
+![ci/cd pipeline architecture diagram](/journal/assets/week9/ci-cd-pipeline.png)
+
 AWS services covered so far:
 - Billing and Cost Management
 - Cognito
@@ -33,6 +37,8 @@ AWS services covered so far:
 - CloudFront
 - Cloud Development Framework (CDK)
 - CloudFormation
+- CodePipeline
+- CodeBuild
 
 ## Journaling Homework
 
